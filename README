@@ -1,0 +1,56 @@
+Onel Alexandru 322CB
+	Feribot: Problema se rezolva cu observatia ca in cazul cel mai bun, pe un feribot se va afla doar
+valoarea maxima din sirul de greutati. Astfel daca cea mai grea masina e singura pe un feribot si toate
+celelalte au incaput in limita numarului de feriboturi, este cea mai optima solutie. Cazul total opus
+este atunci cand pe un feribot intra suma tuturor greutatile ale masinilor. Prima solutie pe care am
+scris o era cu un for de la maximul greutatii masinilor pana la suma greutatilor totala a masinilor.
+Codul functiona, dar nu trecea de limita de timp, astfel urmatoarea idee a devenit o cautare binara,
+avand drept limite left=greutatea max si right=suma tuturor. Am luat o variabila solutie in care am
+salvat solutia curenta si in interiorul while ului am parcurs cu un for toate masinile si am facut etapa
+de verificare pentru a vedea daca noua limita de greutate impusa prin mid=(left+right)/2 este posibila.
+Daca mai aveam nevoie de feriboturi continuam in jumatatea superioara, iar daca ramaneam cu feriboturi
+libere cautam in jumatatea cealalta.Daca numarul de feriboturi utilizat era egal cu cel primit mai 
+avansam cu o pozitie pentru a cauta o solutie si mai buna. Am lasat si comentarii prin cod pentru o
+intelegere mai usoara. Complexitatea este log n de la while si O(n) de la for in cel mai rau caz.
+Deci complexitatea este O(nlogn).
+	Nostory: Problema se imparte in 2 subprobleme. Avand un numar nelimitat de mutari, automat
+vom lua primele n maxime din sirul combinat. Deci am citit 2*n numere in acelasi array si l am sortat
+si am extras primele n numere(sortat descrecator). Prima cerinta a fost usoara. A doua cerinta a 
+venit cu o noua limitare in privinta numarului de schimbari, salvat in variabila limConst. Am citit
+separat in 2 vectori numerele si in acelasi timp i am salvat si in aux, care contine toate valorile.
+Am sortat aux descrescator pentru a obtine combinatia cea mai buna de valori. Primele maxime initiale
+din before se adauga la suma, iar apoi caut schimbarile cele mai optime si le adaug la inceput in 
+vectorul before. Dupa ce am terminat cu schimbarile adaug la rezultat primele valori schimbate 
+parcurgand pana la limConst(variabila care a retinut limita initiala).
+Complexitatea algoritmului este dominata de sortare care este O(nlogn), mai am un for in O(n),
+dar nlogn ramane dominant de la sortare.
+	Sushi: Problema se imparte in 3 subprobleme. Prima este un knapsack simplu, identic cu cel din laborator.
+Primul pas a fost sa citesc preturile platourilo si apoi sumaNotelor. Am creat o functie auxiliara pentru ambele
+nevoi. Prima functie verifica numarul cerintei si pentru primul caz initializeaza primul platou cu 0 si 
+continua prin a citi numar dupa numar si il stocheaza in vectorul platouri. Pentru cerinta 2 si 3, am dublat
+platourile deci citeste din 2 in 2. Pentru ceritna 2 este necesar ca primele 2 platorui sa aiba toate campurile
+setate la 0, dar pentru ceritna 3 nu, deci am adaugat un if unde initializez contorul diferit pentru cele 2.
+Urmeaza functia de citire a sumei notelor, care are o logica similara, citeste intreaga linie si aplica
+un split pentru a obtine numerele si adauga la suma. Dupa ce am salvat datele in Array ul de tip Platou
+(este o clasa care are drept campuri suma notelor si pretul platoului) aplic pentru cerinta 1 si 2 functia 
+knapsack. Aceasta functie aplica un knapsack simplu pentru ceritna 1, dar pentru cerinta 2 am dublat
+nr de platouri si este exact aceiasi logica. In schimb pentru cerinta 3 am dedica o functie care aplica
+un knapsack modificat. Problema se numeste extended knapsack, am facut research pentru a o rezolva si
+am gasit o idee de rezolvare pe site ul geeksforgeeks de unde m am inspirat. Ceea ce au propus ei
+intr una din rezolvarile lor a fost adaugarea inca unei dimensiuni pentru respectarea noii conditii.
+Deci am adaugat un for pentru noua dimesiune si am folosit aceiasi conditie ca la knapsackul vechi.
+Pentru intelegerea knapsack m am documentat de pe youtube de la Abdul Bari si Tushar Roy si Geeks for geeks 
+si am folosit ideile prezentate acolo, modificate pentru taskul meu.
+Complexitatea pentru knapsackul de la cerinta 1 si 2 este O(n^2), in schimb la cerinta 3 este O(n^3).
+Pentru cerinta 2 se mai adauga un 2*, dar am ignorat coeficientul.
+	Semnale: Problema este impartita in 2 subprobleme. Am abordat probleme intr o maniera de programare
+dinamica, am scris matricea care avea raspunsurile pentru 5x5(task1) si am observat cum se formeaza noile elemente din
+matrice. Pentru ambele matrici am facut prima coloana si primele 2 linii egale cu 1 mai putin [0,0]. Am pornit 
+de la zero ca indici in ambele matrici. Pentru primul task am observat ca pentru i si j egale este i+1, pentru j
+mai mare decat i este j, iar pentru j<i este suma celui de deasupra plus cel de deasupra cu o pozitie mai in spate.
+Ar fi fost mai eficient sa salvez doar ultimele 2 linii dar este mai usor asa cum am implementat. Recurenta am gasit o
+relativ repede la primul task, dar la al doilea mi a luat mai mult. Pentru al doilea am observat ca pana in coloana 3
+se adauga elementul anterior plus elementul de deasupra. Pentru j mai mare sau egal cu 3 si mai mic sau egal cu i+1 adaug
+elementul de deasupra plus elementul anterior, dar scad elementul de deasupra mai mic cu 3 pozitii. Ce este peste
+j>i+1 este luat din simetrie, am salvat mijlocul intr o variabila save pentru a il avea mereu. Initial este 2 deoarece
+prima data aplic pe linia 1 unde pica pe 2. Complexitatea este O(nrZero*nrUnu) deci O(n^2). 
